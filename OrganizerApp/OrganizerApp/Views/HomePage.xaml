@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OrganizerApp.Views.HomePage" Title="Home">
+        <ContentPage.Resources>
+            <ResourceDictionary>
+                <Style x:Key="labelStyle" TargetType="Label">
+                    <Setter Property="FontSize" Value="Small" />
+                    <Setter Property="TextColor" Value="Blue" />
+                </Style>
+                <Style x:Key="fieldStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Small" />
+                    <Setter Property="Margin" Value="10,0,0,0" />
+                </Style>
+            </ResourceDictionary>
+        </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout VerticalOptions="StartAndExpand" >
+                <Grid BackgroundColor="White" Padding="10, 10, 10, 10"  IsVisible="{Binding IsWeatherLoaded}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="Weather.png" Grid.Row="0" Grid.Column="0" HorizontalOptions="End"></Image>
+                    <Label Text="  Weather Today"
+                       Grid.Row="0" Grid.Column="1"  Grid.ColumnSpan="2"
+                       HorizontalOptions="StartAndExpand"
+                       TextColor="Gray" FontAttributes="Bold" FontSize="Small"/>
+
+                    <Label Text="Temperature" Style="{StaticResource fieldStyle}" Grid.Row="1" Grid.Column="1" FontSize="Micro"/>
+                    <Label x:Name="weatherToday" Text="{Binding WeatherDetails.Temperature}" 
+                       Grid.Row="1" Grid.Column="2"
+                       VerticalOptions="Center"
+                       Style="{StaticResource labelStyle}"
+                       TextColor="Blue" FontSize="Micro"/>
+
+                    <Label Text="Visibility" Style="{StaticResource fieldStyle}" Grid.Row="2" Grid.Column="1" FontSize="Micro"/>
+                    <Label Text="{Binding WeatherDetails.Visibility}" Style="{StaticResource labelStyle}" Grid.Row="2" Grid.Column="2" FontSize="Micro"/>
+                </Grid>
+            </StackLayout>
+            <StackLayout VerticalOptions="EndAndExpand" >
+                <ListView x:Name="NotificationListView" 
+                ItemsSource="{Binding Items}"
+                 HasUnevenRows="true"
+                 RefreshCommand="{Binding LoadItemsCommand}"
+                 IsPullToRefreshEnabled="true"
+                 IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                 CachingStrategy="RecycleElement" VerticalOptions="CenterAndExpand">
+                    <ListView.Header>
+                        <!--<Image Source="Event.png"></Image>-->
+                        
+                        <Label Text="  Todays Events"  BackgroundColor="#99d6ff"></Label>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="10">
+                                    <Label Text="{Binding Name}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemTextStyle}" FontSize="Small" />
+                                    <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="Micro" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            
+                <ListView x:Name="ToDoListView" 
+                ItemsSource="{Binding Tasks}"
+                 HasUnevenRows="true"
+                 RefreshCommand="{Binding LoadTasksCommand}"
+                 IsPullToRefreshEnabled="true"
+                 IsRefreshing="{Binding IsTaskBusy, Mode=OneWay}"
+                 CachingStrategy="RecycleElement" VerticalOptions="EndAndExpand">
+                <ListView.Header>
+                    <Label Text="  To Do Tasks"  BackgroundColor="#99d6ff"></Label>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Padding="10">
+                                <Label Text="{Binding Description}" LineBreakMode="NoWrap" Style="{DynamicResource ListItemDetailTextStyle}" FontSize="Micro" />
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

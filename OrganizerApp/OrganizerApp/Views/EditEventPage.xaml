@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             
+             x:Class="OrganizerApp.Views.EditEventPage"
+             Title="Edit Event">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cancel" Clicked="Cancel_Clicked" />
+        <ToolbarItem Text="Save" Clicked="Save_Clicked" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Spacing="20" Padding="15">
+                <Label Text="Text" FontSize="Small" />
+                <Editor Text="{Binding Event.Name}" FontSize="Small" />
+                <Label Text="Description" FontSize="Small" />
+                <Editor Text="{Binding Event.Description}" FontSize="Small" Margin="0" />
+                <Label Text="Repeat" FontSize="Small" />
+                <Picker Title="Select Repeat" x:Name="dboRepeat"  SelectedIndexChanged="dboRepeat_OnSelectedIndexChanged" SelectedIndex="{Binding Event.RepeatTypeId}">
+                </Picker>
+                <DatePicker Date="{Binding Event.EventDate}" >
+                    <DatePicker.Format>yyyy-MM-dd</DatePicker.Format>
+                </DatePicker>
+                
+                <Label Text="Event Date:" FontSize="Small" />
+                
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+
+</ContentPage>

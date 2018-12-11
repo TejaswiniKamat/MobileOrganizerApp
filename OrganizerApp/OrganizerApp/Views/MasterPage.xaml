@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+    <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:OrganizerApp.Views;assembly=OrganizerApp"
+             xmlns:localP="clr-namespace:OrganizerApp;assembly=OrganizerApp"
+			 x:Class="OrganizerApp.Views.MasterPage"
+			 Padding="0,40,0,0"
+			 Icon="hamburger.png"
+			 Title="Personal Organiser" BackgroundColor="#99d6ff">
+    <StackLayout BackgroundColor="White">
+        <Image Source="Atooma.png" BackgroundColor="#99d6ff"></Image>
+            <ListView x:Name="listView" SeparatorVisibility="Default">
+                <ListView.ItemsSource>
+                    <x:Array Type="{x:Type local:MasterPageItem}">
+                    <local:MasterPageItem Title="Home" IconSource="Home.png" TargetType="{x:Type local:HomePage}" />
+                    <local:MasterPageItem Title="Event" IconSource="Event.png" TargetType="{x:Type local:EventsPage}" />
+                    <local:MasterPageItem Title="To do List" IconSource="ToDoColor.png" TargetType="{x:Type local:ToDoTasksPage}" />
+                    <!--<local:MasterPageItem Title="Manage Contacts" IconSource="systemusers.png" TargetType="{x:Type local:HomePage}" />-->
+                    <local:MasterPageItem Title="Weather Today" IconSource="Weather.png" TargetType="{x:Type local:WeatherPage}" />
+                    <local:MasterPageItem Title="My Location" IconSource="GoogleMaps.png" TargetType="{x:Type localP:MapPage}" />
+                </x:Array>
+                </ListView.ItemsSource>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="5,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding IconSource}" />
+                                <Label Grid.Column="1" Text="{Binding Title}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage>
