@@ -18,7 +18,7 @@ namespace OrganizerApp.Services
                 //+ "zip=" + zipCode + ", us&appid=" + key + "&units=imperial";
                 + "q=Pune,india" + "&appid=" + key + "&units=imperial";
 
-            dynamic results = await ExternalDataService.getDataFromService1(queryString).ConfigureAwait(false);
+            dynamic results = await ExternalDataService.getDataFromService(queryString).ConfigureAwait(false);
 
             if (results["weather"] != null)
             {
